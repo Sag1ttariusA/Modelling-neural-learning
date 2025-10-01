@@ -1,27 +1,20 @@
-### The first step is to create an a neuron (an object) that fires (is True) with a given probability
 import random
 
-def Neuron(name,probability):
-    if probability > 1: 
-        return "Please enter a probability between 0 and 1!"
-    firing_prob = probability
-    resting_prob = 1-probability
-    event = random.choices(["Fires", "Rests"], weights=[firing_prob,resting_prob])[0]  # returns a list by default thus the "[0]"
-    return_value = f"{name}: {event}"
-    return return_value
+class Neuron: 
+    def __init__(self, name, firing_prob, multiplier):            
+    # firing_prob is the default probability of the neuron firing, the multiplier increases the probability of firing if other neurons are activated
+        self.name = name
+        self.firing_prob = firing_prob
+        self.resting_prob = 1 - firing_prob
+        self.multiplier = multiplier
 
-def main():
-    neuron_a = Neuron("Neuron_A", 0.2)
-    if neuron_a == "Neuron_A: Fires":   
-        neuron_b = Neuron("Neuron_B", 1)
-        neuron_c = Neuron("Neuron_C", 1)
-    else:
-        neuron_b = Neuron("Neuron_B", 0.2)
-        neuron_c = Neuron("Neuron_C", 0.2)
-    output = [neuron_a, neuron_b, neuron_c]
+    @classmethod # why did it work without the decorator "@classmethod"
+    def simulate(cls):
+        event = random.choices(["Fires", "Rests"], weights=[self.firing_prob,self.resting_prob])[0]
+        return f"{self.name}: {event}"
+    
+neuron_a = Neuron("Neuron_A", 0.3, 1.2)
+print(neuron_a.simulate())
 
 
         
-    print(output)
-
-main()
