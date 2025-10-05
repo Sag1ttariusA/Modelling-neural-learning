@@ -12,7 +12,6 @@ class Primary_Neuron:
     def simulate(self):
         self.result = random.choices(["Fires", "Rests"], weights=[self.firing_prob, self.resting_prob])[0]
         return f"{self.name}: {self.result}"
-    
 
 class Secondary_Neuron:
     def __init__(self, name, resting_potential, threshold, signal_strength, post_fire_potential):       
@@ -21,17 +20,30 @@ class Secondary_Neuron:
         self.threshold = threshold
         self.signal_strength = signal_strength  # size of the step increase if a an action potential is received
         self.post_fire_potential = post_fire_potential
+        self.consecutive_rest = False
        
     def simulate(self, input):
+        inhibited = False
         if input == "Fires":
             self.membrane_potential += self.signal_strength  
-        # if the neuron reaches threshold it fires and its membrane potential is set back down
+            self.consecutive_rest = 0  # reset counter
+        else:
+            self.consecutive_rest += 1
+            if self.consecutive_rest >= 2:  # only decrease after 2 rests in a row
+                self.membrane_potential -= self.signal_strength
+                self.consecutive_rest = 0  # reset so it requires two more rests again
+                inhibited = True
+
+    # if the neuron reaches threshold it fires and its membrane potential is set back down
         if self.membrane_potential >= self.threshold:
             temp = self.membrane_potential
             self.membrane_potential = self.post_fire_potential
             return f"{self.name}: {temp} --> Fires!"
-        else: 
-            return f"{self.name}: {self.membrane_potential} --> Rests"
+        elif inhibited == True: 
+            return f"{self.name}: {self.membrane_potential} --> Inhibited"
+        else:
+            return f"{self.name}: {self.membrane_potential} --> Rests"        
+        
 
 neuron_a = Primary_Neuron("Neuron_A", 0.4, 1.2)
 neuron_b = Secondary_Neuron("Neuron_B", -60, 10, 20, -100)
@@ -41,6 +53,7 @@ def main():
     neuron_b_input = neuron_a.result
     neuron_b_output = neuron_b.simulate(neuron_b_input)
     output = [neuron_a_outpout, neuron_b_output]
+    state = output
     print(output)
 
 for _ in range(10): 
