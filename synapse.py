@@ -91,8 +91,7 @@ secondary_neurons = [secondary_neuron_c, secondary_neuron_d]
 syn_a_c = Synapse(primary_neuron_a, secondary_neuron_c, strength=0.2, inhibitor=-0.2)
 syn_a_d = Synapse(primary_neuron_a, secondary_neuron_d, strength=0.2, inhibitor=-0.2)
 syn_b_c = Synapse(primary_neuron_b, secondary_neuron_c, strength=0.2, inhibitor=-0.2)
-syn_b_d = Synapse(primary_neuron_b, secondary_neuron_d, strength=0.2, inhibitor=-0.2)
-synapses = [syn_a_c, syn_a_d, syn_b_c, syn_b_d]
+synapses = [syn_a_c, syn_a_d, syn_b_c]
 
 def network():
     signal_c = 0
@@ -102,8 +101,7 @@ def network():
         outputs.append(neuron.simulate())
     for synapse in [syn_a_c, syn_b_c]:
         signal_c += synapse.get_signal()
-    for synapses in [syn_a_d, syn_b_d]: 
-        signal_d += synapse.get_signal()
+    signal_d = syn_a_d.get_signal()
     outputs.append(secondary_neuron_c.simulate(signal_c))
     outputs.append(secondary_neuron_d.simulate(signal_d))
     print(outputs)
