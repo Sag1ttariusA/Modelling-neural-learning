@@ -1,4 +1,7 @@
 import random
+import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
 
 class Primary_Neuron: 
     def __init__(self, name, firing_prob):            
@@ -78,9 +81,6 @@ def first():
     neuron_b_output = neuron_b.simulate(signal)
     output = [neuron_a_outpout, neuron_b_output]
     print(output)
-
-# for _ in range(10): 
-#     first()
     
 primary_neuron_a = Primary_Neuron("Primary_Neuron_A", 0.4)
 primary_neuron_b = Primary_Neuron("Primary_Neuron_B", 0.4)
@@ -107,4 +107,16 @@ def network():
     print(outputs)
     print(f"Signal C: {signal_c}, Signal D: {signal_d}")
     
-network()
+edge_list = [
+    (primary_neuron_a.name, secondary_neuron_c.name),
+    (primary_neuron_a.name, secondary_neuron_d.name),
+    (primary_neuron_b.name, secondary_neuron_c.name)
+]
+G = nx.DiGraph()
+G.add_edges_from(edge_list)
+
+pos = nx.spring_layout(G)
+nx.draw(G, pos, with_labels=True, node_color='lightblue', arrows=True)
+plt.savefig("neural_network.png")
+print("Graph saved as 'neural_network.png'")
+

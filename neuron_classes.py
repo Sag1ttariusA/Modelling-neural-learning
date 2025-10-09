@@ -1,7 +1,7 @@
 import random
 
 class Primary_Neuron: 
-    def __init__(self, name, firing_prob):            
+    def __init__(self, name, firing_prob=0.4):            
     # firing_prob is the default probability of the neuron firing, the multiplier increases the probability of firing if other neurons are activated
         self.name = name
         self.firing_prob = firing_prob
@@ -19,7 +19,7 @@ class Primary_Neuron:
         return f"{self.name}: {self.result}"
 
 class Secondary_Neuron:
-    def __init__(self, name, resting_potential, threshold, post_fire_potential=-100):       
+    def __init__(self, name, resting_potential=-60, threshold=10, post_fire_potential=-100):       
         self.name = name
         self.membrane_potential = resting_potential
         self.threshold = threshold
@@ -42,7 +42,7 @@ class Secondary_Neuron:
 # We're trying to have all of the processing of the signal from the primary neurons happen in the Synapse Class, such that the secondary neurons already receive
 # the processed signal
 class Synapse: 
-    def __init__(self, presynpatic_neuron, postsynaptic_neuron, strength, inhibitor):
+    def __init__(self, presynpatic_neuron, postsynaptic_neuron, strength=0.2, inhibitor=0.2):
         self.presynaptic_neuron = presynpatic_neuron
         self.postsynaptic_neuron = postsynaptic_neuron
         self.strength = strength  # this parameter adjusts how strong the signal from the primary neurons to the secondary will be -> 1 means 1 by 1 transport 
@@ -67,44 +67,9 @@ class Synapse:
             else: 
                 signal = 0
             return signal
-            
-neuron_a = Primary_Neuron("Neuron_A", 0.4)
-neuron_b = Secondary_Neuron("Neuron_B", -60, 10)
-syn_a_b = Synapse(neuron_a, neuron_b, strength=0.2, inhibitor=-0.2)
 
-def first():
-    neuron_a_outpout = neuron_a.simulate()
-    signal = syn_a_b.get_signal()
-    neuron_b_output = neuron_b.simulate(signal)
-    output = [neuron_a_outpout, neuron_b_output]
-    print(output)
 
-# for _ in range(10): 
-#     first()
-    
-primary_neuron_a = Primary_Neuron("Primary_Neuron_A", 0.4)
-primary_neuron_b = Primary_Neuron("Primary_Neuron_B", 0.4)
-primary_neurons = [primary_neuron_a, primary_neuron_b]
-secondary_neuron_c = Secondary_Neuron("Secondary_Neuron_C", -60, 10)
-secondary_neuron_d = Secondary_Neuron("Secondary_Neuron_D", -60, 10)
-secondary_neurons = [secondary_neuron_c, secondary_neuron_d]
-syn_a_c = Synapse(primary_neuron_a, secondary_neuron_c, strength=0.2, inhibitor=-0.2)
-syn_a_d = Synapse(primary_neuron_a, secondary_neuron_d, strength=0.2, inhibitor=-0.2)
-syn_b_c = Synapse(primary_neuron_b, secondary_neuron_c, strength=0.2, inhibitor=-0.2)
-synapses = [syn_a_c, syn_a_d, syn_b_c]
 
-def network():
-    signal_c = 0
-    signal_d = 0 
-    outputs = []
-    for neuron in primary_neurons:
-        outputs.append(neuron.simulate())
-    for synapse in [syn_a_c, syn_b_c]:
-        signal_c += synapse.get_signal()
-    signal_d = syn_a_d.get_signal()
-    outputs.append(secondary_neuron_c.simulate(signal_c))
-    outputs.append(secondary_neuron_d.simulate(signal_d))
-    print(outputs)
-    print(f"Signal C: {signal_c}, Signal D: {signal_d}")
-    
-network()
+
+
+        

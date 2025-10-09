@@ -14,5 +14,12 @@
 **-> rather than this, I implemented synapses which process the signals for the secondary neurons, such that they merely receive the signal
 --> synpases determine next run through**
 
-- [ ] **Create a primitive network of neurons**
-	- [ ] create 2 primary neurons and 2 secondary neurons and form some connections between them, then adjust you're classes to make this work 
+- [x] **Create a primitive network of neurons**
+	- [x] create 2 primary neurons and 2 secondary neurons and form some connections between them, then adjust you're classes to make this work 
+
+- [ ] **study the basics of graph theory** 
+	- [x] graph theory as such 
+	- [ ] how to implement graphs in python
+
+- [ ] **increase the size of the neural network**
+	- [] say 5 primary and 10 secondary neurons
