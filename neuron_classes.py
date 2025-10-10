@@ -17,6 +17,23 @@ class Primary_Neuron:
         else: 
             self.spike = 0
         return f"{self.name}: {self.result}"
+    
+class Sensory_Neuron:
+    def __init__(self, name, stimulus):
+        self.name = name
+        self.stimulus = stimulus
+        self.result = ""
+        self.spike = 0
+    
+    def simulate(self, signal):
+        if signal == self.stimulus: 
+            self.result = "Fires"
+            self.spike = 100
+        else: 
+            self.result = "Rests"
+            self.spike = 0 
+
+    
 
 class Secondary_Neuron:
     def __init__(self, name, resting_potential=-60, threshold=10, post_fire_potential=-100):       
