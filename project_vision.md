@@ -14,3 +14,11 @@ Furthermore the model must have the following properties:
 - a mechanism for feeding a pattern is needed as well as of course a suitable pattern that can be given as an input
 - a set of neurotransmitters and neuromodulators (e.g. dopamine) for reward of a prediction (strengthening a synapse) or punishment (weakening a synapse)
 - a feedback mechanism for the neurons -> should be easy as this feedback is just the next input 
+
+
+
+I noticed to different ways to pursue this project: 
+1) Use primary neurons that fire randomly then try to have these random fire patterns be reinforced by the same input 
+	-> the idea is to have a system that is completely undetermined and random but still learns
+2) Use sensory neurons that respond to specific stimuli (not random) to pass these inputs to the secondary neurons
+	-> this system is not as random. In a sense we determine some of it by specifying to which stimuli a sensory neuron reacts
