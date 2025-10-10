@@ -47,25 +47,27 @@ for synapse in synapses:
 node_colors = [data.get("color", "lightgray") for _, data in G.nodes(data=True)]
     
 nx.draw_circular(G, node_color=node_colors, with_labels=True, arrows=True)
-plt.savefig("neural_network.png")
+plt.savefig("image_neural_network.png")
 
-for neuron in primary_neurons:
-    neuron.simulate()
+def run_network():
+    for neuron in primary_neurons:
+        neuron.simulate()
 
-for synapse in synapses:
-    signal = synapse.get_signal()
-    print(synapse.postsynaptic_neuron.name, signal)
-    synapse.postsynaptic_neuron.signals.append(signal)
+    for synapse in synapses:
+        signal = synapse.get_signal()
+        print(synapse.postsynaptic_neuron.name, signal)
+        synapse.postsynaptic_neuron.signals.append(signal)
 
-for s_neuron in secondary_neurons: 
-    print(s_neuron.name, s_neuron.signals)
+    # for s_neuron in secondary_neurons: 
+    #     print(s_neuron.name, s_neuron.signals)
 
-output = []
-for neuron in secondary_neurons: 
-    output.append(neuron.simulate())
+    output = []
+    for neuron in secondary_neurons: 
+        output.append(neuron.simulate())
 
-for element in output: 
-    print(element)
+    for element in output: 
+        print(element)
 
+run_network()
                 
 
