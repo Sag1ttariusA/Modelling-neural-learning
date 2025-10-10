@@ -21,20 +21,23 @@ class Primary_Neuron:
 class Secondary_Neuron:
     def __init__(self, name, resting_potential=-60, threshold=10, post_fire_potential=-100):       
         self.name = name
+        self.signals = []  # a list used to collect all the different signals given to the neuron
         self.membrane_potential = resting_potential
         self.threshold = threshold
         self.post_fire_potential = post_fire_potential
         self.consecutive_rest = 0
        
-    def simulate(self, signal):
-        self.membrane_potential += signal
+    def simulate(self):
+        for signal in self.signals:
+            self.membrane_potential += signal
 
     # if the neuron reaches threshold it fires and its membrane potential is set back down
+        previous_potential = self.membrane_potential
         if self.membrane_potential >= self.threshold:
             temp = self.membrane_potential
             self.membrane_potential = self.post_fire_potential
             return f"{self.name}: {temp} --> Fires!"
-        elif signal < 0: 
+        elif self.membrane_potential < previous_potential: 
             return f"{self.name}: {self.membrane_potential} --> Inhibited"
         else:
             return f"{self.name}: {self.membrane_potential} --> Rests"        
