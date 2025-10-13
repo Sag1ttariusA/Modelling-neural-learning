@@ -21,5 +21,8 @@
 	- [x] graph theory as such 
 	- [ ] how to implement graphs in python
 
-- [ ] **increase the size of the neural network**
-	- [] say 5 primary and 10 secondary neurons
+- [x] **increase the size of the neural network**
+	- [x] say 5 primary and 10 secondary neurons
+
+- [x] **create an input mechanism** 
+	- [x] primary sensory neurons should respond to some category of stimulus (e.g. the color red)
